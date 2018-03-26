@@ -1,7 +1,15 @@
 /*
 ---------- Coin change problem - minimum number of coins -----------
-Find minimum number of coins that make a given value where
-you can use a coin multiple times.
+My friend SSS is a talented and beautiful girl. She loves Ice cream. One day, she
+went to the shop and bought an Ice cream. She gave 20 takas (currency of Bangladesh)
+to the shopkeeper. After keeping the price of the Ice cream, the shopkeeper
+exchanged 13 takas using 6 coins where 5 coins of 2 takas and 1 coin of 3 takas.
+SSS is a talented girl and she also knows dynamic programming. She doesn't want to
+increase the weight of her purse by taking more coins. In the shopkeeper, only 3 types
+of coins are available. The denominations of those coins are 2, 3, and 5. SSS calculated
+the minimum number of coins to make 13 takas and took those coins.
+
+Find out the minimum number of coins that SSS calculated and also those coins.
 */
 
 #include <iostream>
