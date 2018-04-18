@@ -11,13 +11,13 @@ Decorator Design Pattern can be used to solve these problems,
 #include <iostream>
 
 
-class VisualComponent
+class Viewer
 {
 public:
 	virtual void display() = 0;
 };
 
-class TextViewer : public VisualComponent
+class TextViewer : public Viewer
 {
 public:
 	void display(){
@@ -25,7 +25,7 @@ public:
 	}
 };
 
-class ImageViewer : public VisualComponent
+class ImageViewer : public Viewer
 {
 public:
 	void display(){
@@ -33,26 +33,26 @@ public:
 	}
 };
 
-class Decorator : public VisualComponent
+class Decorator : public Viewer
 {
 protected:
-	VisualComponent *visual_component;
+	Viewer *viewer;
 
 public:
-	Decorator(VisualComponent *vc){
-		visual_component = vc;
+	Decorator(Viewer *vr){
+		viewer = vr;
 	}
 
 	void display(){
-		visual_component->display();
+		viewer->display();
 	}
 };
 
 class ScrollDecorator : public Decorator
 {
 public:
-	ScrollDecorator(VisualComponent *vc) : Decorator(vc) { }
-	
+	ScrollDecorator(Viewer *vc) : Decorator(vc) { }
+
 	void display(){
 		Decorator::display();
 		addScrollBar();
@@ -66,7 +66,7 @@ public:
 class BorderDecorator : public Decorator
 {
 public:
-	BorderDecorator(VisualComponent *vc) : Decorator(vc) { }
+	BorderDecorator(Viewer *vc) : Decorator(vc) { }
 
 	void display(){
 		Decorator::display();
@@ -81,24 +81,24 @@ public:
 int main()
 {
 	std::cout << "\n------- Only text viewer --------" << std::endl;
-	VisualComponent *text_viewer = new TextViewer();
+	Viewer *text_viewer = new TextViewer();
 	text_viewer->display();
 
 	std::cout << "\n------- Text viewer with the Scrollbar --------" << std::endl;
-	VisualComponent *text_viewer_with_scroll = new ScrollDecorator(text_viewer);
+	Viewer *text_viewer_with_scroll = new ScrollDecorator(text_viewer);
 	text_viewer_with_scroll->display();
 
 	std::cout << "\n------- Text viewer with Scrollbar and Border --------" << std::endl;
-	VisualComponent *text_viewer_with_border = new BorderDecorator(text_viewer_with_scroll);
+	Viewer *text_viewer_with_border = new BorderDecorator(text_viewer_with_scroll);
 	text_viewer_with_border->display();
 
 
 	std::cout << "\n------- Only Image viewer --------" << std::endl;
-	VisualComponent *image_viewer = new ImageViewer();
+	Viewer *image_viewer = new ImageViewer();
 	image_viewer->display();
 
 	std::cout << "\n------- Image viewer with the Border --------" << std::endl;
-	VisualComponent *image_viewer_with_border = new BorderDecorator(image_viewer);
+	Viewer *image_viewer_with_border = new BorderDecorator(image_viewer);
 	image_viewer_with_border->display();
 
 	return 0;
