@@ -8,6 +8,8 @@ Place N chess queens on an N×N chessboard so that no two queens attack each oth
 
 #define N 4
 
+static int tot_sol = 0;
+
 void printSolution(int board[N][N])
 {
     for(int i=0; i<N; i++){
@@ -39,23 +41,20 @@ bool isSafe(int board[N][N], int row, int col)
     return true;
 }
 
-bool solveNQueen(int board[N][N], int row)
+void solveNQueen(int board[N][N], int row)
 {
-    if (row >= N)
-        return true;
+    if (row == N){
+        std::cout << "\nSolution number: " << ++tot_sol << std::endl;
+        printSolution(board);
+    }
 
     for (int i=0; i<N; i++){
         if(isSafe(board, row, i)){
             board[row][i] = true;
-
-            if(solveNQueen(board, row+1))
-                return true;
-        
+            solveNQueen(board, row + 1);
             board[row][i] = false;                // Backtrack
         }
     }
-
-    return false;
 }
 
 int main()
@@ -67,12 +66,11 @@ int main()
         {0, 0, 0, 0}
     };
 
-    if(solveNQueen(board, 0) == false){
-        std::cout << "No solution exist." << std::endl;
-        return 0;
-    }
+    solveNQueen(board, 0);
 
-    printSolution(board);
+    if(tot_sol == 0){
+        std::cout << "No solution exist." << std::endl;
+    }
 
     return 0;
 }
